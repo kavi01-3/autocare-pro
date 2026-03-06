@@ -2,8 +2,8 @@
 //  AutoCare Pro – API Client
 // ============================================================
 
-// Use same server that served the website
-const API_BASE = "";
+// Backend API URL (Render)
+const API_BASE = "https://autocare-backend-e0fu.onrender.com";
 
 const API = {
     async request(endpoint, method = 'GET', body = null) {
@@ -17,12 +17,22 @@ const API = {
         try {
             const response = await fetch(`${API_BASE}${endpoint}`, options);
 
+            const contentType = response.headers.get("content-type");
+
             if (!response.ok) {
-                const error = await response.json();
-                throw new Error(error.detail || 'Something went wrong');
+                if (contentType && contentType.includes("application/json")) {
+                    const error = await response.json();
+                    throw new Error(error.detail || 'Something went wrong');
+                } else {
+                    throw new Error("Server error");
+                }
             }
 
-            return await response.json();
+            if (contentType && contentType.includes("application/json")) {
+                return await response.json();
+            } else {
+                return {};
+            }
 
         } catch (err) {
             console.error(`API Error [${method} ${endpoint}]:`, err);
