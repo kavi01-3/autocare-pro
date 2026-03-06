@@ -1,6 +1,7 @@
 fastapi
-uvicorn[standard]
+uvicorn
 sqlmodel
 python-multipart
 passlib[bcrypt]
+bcrypt==4.0.1
 python-jose[cryptography]
