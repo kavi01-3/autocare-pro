@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoCare Pro – Vehicle Service Booking System</title>
+  <meta name="description"
+    content="Book vehicle services, track service status, and manage your service history digitally with AutoCare Pro." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <div id="app">
+
+    <!-- ═══════════════ AUTH SCREEN ═══════════════ -->
+    <div id="auth-screen" class="screen active">
+      <div class="auth-bg">
+        <!-- Floating tool / gear icons -->
+        <span class="float-icon fi-1">⚙️</span>
+        <span class="float-icon fi-2">🔧</span>
+        <span class="float-icon fi-3">🔩</span>
+        <span class="float-icon fi-4">⚙️</span>
+        <span class="float-icon fi-5">🔌</span>
+        <span class="float-icon fi-6">🛞</span>
+
+        <!-- Headlight beams -->
+        <div class="headlight headlight-l"></div>
+        <div class="headlight headlight-r"></div>
+
+        <!-- Animated Road with car silhouettes -->
+        <div class="auth-road">
+          <div class="car-silhouette car-1">
+            <svg width="120" height="50" viewBox="0 0 120 50" fill="none">
+              <rect x="20" y="18" width="80" height="22" rx="4" fill="#00d4ff" opacity="0.7" />
+              <rect x="35" y="8" width="50" height="16" rx="6" fill="#00d4ff" opacity="0.5" />
+              <circle cx="32" cy="42" r="8" fill="#1a1a2e" stroke="#00d4ff" stroke-width="2" />
+              <circle cx="88" cy="42" r="8" fill="#1a1a2e" stroke="#00d4ff" stroke-width="2" />
+              <rect x="0" y="26" width="16" height="6" rx="3" fill="#fff9c4" opacity="0.9" />
+              <rect x="104" y="26" width="16" height="6" rx="3" fill="#ff4444" opacity="0.8" />
+            </svg>
+          </div>
+          <div class="car-silhouette car-2">
+            <svg width="100" height="44" viewBox="0 0 100 44" fill="none">
+              <rect x="10" y="16" width="80" height="18" rx="4" fill="#ff6b00" opacity="0.6" />
+              <rect x="25" y="6" width="50" height="14" rx="5" fill="#ff6b00" opacity="0.45" />
+              <circle cx="22" cy="36" r="7" fill="#0d0f18" stroke="#ff6b00" stroke-width="2" />
+              <circle cx="78" cy="36" r="7" fill="#0d0f18" stroke="#ff6b00" stroke-width="2" />
+              <rect x="0" y="22" width="14" height="5" rx="2.5" fill="#fff9c4" opacity="0.9" />
+              <rect x="86" y="22" width="14" height="5" rx="2.5" fill="#ff4444" opacity="0.8" />
+            </svg>
+          </div>
+          <div class="car-silhouette car-3">
+            <svg width="90" height="40" viewBox="0 0 90 40" fill="none">
+              <ellipse cx="45" cy="26" rx="40" ry="13" fill="#8b5cf6" opacity="0.55" />
+              <ellipse cx="45" cy="18" rx="26" ry="9" fill="#8b5cf6" opacity="0.4" />
+              <circle cx="20" cy="34" r="6" fill="#0d0f18" stroke="#8b5cf6" stroke-width="2" />
+              <circle cx="70" cy="34" r="6" fill="#0d0f18" stroke="#8b5cf6" stroke-width="2" />
+              <rect x="1" y="21" width="12" height="4" rx="2" fill="#fff9c4" opacity="0.9" />
+              <rect x="77" y="21" width="12" height="4" rx="2" fill="#ff4444" opacity="0.8" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="auth-container">
+        <div class="auth-brand">
+          <div class="brand-icon">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <path d="M6 24l3-9h18l3 9H6z" fill="url(#cg1)" />
+              <rect x="4" y="24" width="28" height="5" rx="2.5" fill="url(#cg1)" />
+              <circle cx="10" cy="29" r="3" fill="#fff" />
+              <circle cx="26" cy="29" r="3" fill="#fff" />
+              <path d="M10 18l2-6h12l2 6" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" />
+              <defs>
+                <linearGradient id="cg1" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#6366f1" />
+                  <stop offset="1" stop-color="#8b5cf6" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div>
+            <h1 class="brand-name">AutoCare Pro</h1>
+            <p class="brand-tagline">Smart Vehicle Service Management</p>
+          </div>
+        </div>
+
+        <div class="auth-tabs">
+          <button class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">Sign In</button>
+          <button class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">Register</button>
+        </div>
+
+        <!-- Login -->
+        <div class="auth-form active" id="form-login">
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="login-email" class="form-input" placeholder="you@example.com" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" id="login-password" class="form-input" placeholder="••••••••"
+              onkeydown="if(event.key==='Enter')handleLogin()" />
+          </div>
+          <div class="demo-accounts">
+            <p class="demo-label">Demo accounts:</p>
+            <button class="demo-btn" onclick="fillDemo('owner')">🚗 Vehicle Owner</button>
+            <button class="demo-btn" onclick="fillDemo('admin')">🛠 Admin</button>
+          </div>
+          <button class="btn btn-primary btn-full" onclick="handleLogin()">Sign In</button>
+        </div>
+
+        <!-- Register -->
+        <div class="auth-form" id="form-register">
+          <div class="form-group"><label class="form-label">Full Name</label><input type="text" id="reg-name"
+              class="form-input" placeholder="John Doe" /></div>
+          <div class="form-group"><label class="form-label">Email Address</label><input type="email" id="reg-email"
+              class="form-input" placeholder="you@example.com" /></div>
+          <div class="form-group"><label class="form-label">Password</label><input type="password" id="reg-password"
+              class="form-input" placeholder="Min 6 characters" /></div>
+          <div class="form-group">
+            <label class="form-label">Account Type</label>
+            <select id="reg-role" class="form-input form-select">
+              <option value="owner">Vehicle Owner</option>
+              <option value="admin">Service Center Admin</option>
+            </select>
+          </div>
+          <button class="btn btn-primary btn-full" onclick="handleRegister()">Create Account</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ OWNER SCREEN ═══════════════ -->
+    <div id="owner-screen" class="screen">
+      <aside class="sidebar" id="owner-sidebar">
+        <div class="sidebar-brand">
+          <div class="brand-icon-sm">
+            <svg width="24" height="24" viewBox="0 0 36 36" fill="none">
+              <path d="M6 24l3-9h18l3 9H6z" fill="url(#sg2)" />
+              <rect x="4" y="24" width="28" height="5" rx="2.5" fill="url(#sg2)" />
+              <circle cx="10" cy="29" r="3" fill="#fff" />
+              <circle cx="26" cy="29" r="3" fill="#fff" />
+              <defs>
+                <linearGradient id="sg2" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#6366f1" />
+                  <stop offset="1" stop-color="#8b5cf6" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <span class="sidebar-brand-name">AutoCare Pro</span>
+        </div>
+        <nav class="sidebar-nav">
+          <a href="#" class="nav-item active" onclick="ownerNav('dashboard',this)" id="onav-dashboard"><span
+              class="nav-icon">📊</span><span class="nav-label">Dashboard</span></a>
+          <a href="#" class="nav-item" onclick="ownerNav('vehicles',this)" id="onav-vehicles"><span
+              class="nav-icon">🚗</span><span class="nav-label">My Vehicles</span></a>
+          <a href="#" class="nav-item" onclick="ownerNav('booking',this)" id="onav-booking"><span
+              class="nav-icon">📅</span><span class="nav-label">Book Service</span></a>
+          <a href="#" class="nav-item" onclick="ownerNav('bookings',this)" id="onav-bookings"><span
+              class="nav-icon">🔖</span><span class="nav-label">My Bookings</span></a>
+          <a href="#" class="nav-item" onclick="ownerNav('history',this)" id="onav-history"><span
+              class="nav-icon">📜</span><span class="nav-label">Service History</span></a>
+          <a href="#" class="nav-item" onclick="ownerNav('notifications',this)" id="onav-notifications"><span
+              class="nav-icon">🔔</span><span class="nav-label">Notifications</span><span class="nav-badge"
+              id="notif-badge">0</span></a>
+          <a href="#" class="nav-item" onclick="ownerNav('profile',this)" id="onav-profile"><span
+              class="nav-icon">👤</span><span class="nav-label">My Profile</span></a>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="user-avatar-sm" id="owner-avatar-sm"></div>
+          <div class="sidebar-user-info">
+            <p class="sidebar-username" id="owner-name-sidebar"></p>
+            <p class="sidebar-role">Vehicle Owner</p>
+          </div>
+          <button class="logout-btn" onclick="handleLogout()" title="Logout">⏻</button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <div class="mobile-header">
+          <button class="hamburger" onclick="toggleSidebar()">☰</button>
+          <span class="mobile-brand">AutoCare Pro</span>
+          <button class="logout-btn-sm" onclick="handleLogout()">⏻</button>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="panel active" id="panel-dashboard">
+          <div class="page-header">
+            <div>
+              <h2 class="page-title">Welcome back, <span id="owner-greeting-name"></span>! 👋</h2>
+              <p class="page-subtitle">Here's an overview of your vehicles and services</p>
+            </div>
+          </div>
+          <div class="stats-grid" id="owner-stats"></div>
+          <div class="dashboard-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Recent Bookings</h3><button class="btn btn-sm btn-ghost"
+                  onclick="ownerNav('bookings',document.getElementById('onav-bookings'))">View all</button>
+              </div>
+              <div id="recent-bookings-list"></div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Quick Actions</h3>
+              </div>
+              <div class="quick-actions">
+                <button class="quick-action-btn"
+                  onclick="ownerNav('booking',document.getElementById('onav-booking'))"><span
+                    class="qa-icon">📅</span><span>Book Service</span></button>
+                <button class="quick-action-btn"
+                  onclick="ownerNav('vehicles',document.getElementById('onav-vehicles'))"><span
+                    class="qa-icon">🚗</span><span>Add Vehicle</span></button>
+                <button class="quick-action-btn"
+                  onclick="ownerNav('history',document.getElementById('onav-history'))"><span
+                    class="qa-icon">📜</span><span>Service History</span></button>
+                <button class="quick-action-btn"
+                  onclick="ownerNav('notifications',document.getElementById('onav-notifications'))"><span
+                    class="qa-icon">🔔</span><span>Notifications</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vehicles -->
+        <div class="panel" id="panel-vehicles">
+          <div class="page-header">
+            <div>
+              <h2 class="page-title">My Vehicles</h2>
+              <p class="page-subtitle">Manage your registered vehicles</p>
+            </div>
+            <button class="btn btn-primary" onclick="openModal('add-vehicle-modal')">+ Add Vehicle</button>
+          </div>
+          <div class="vehicles-grid" id="vehicles-grid"></div>
+        </div>
+
+        <!-- Book Service -->
+        <div class="panel" id="panel-booking">
+          <div class="page-header">
+            <div>
+              <h2 class="page-title">Book a Service</h2>
+              <p class="page-subtitle">Schedule your vehicle service in a few easy steps</p>
+            </div>
+          </div>
+          <div class="booking-wizard">
+            <div class="wizard-steps">
+              <div class="wizard-step active" id="wstep-1">
+                <div class="step-num">1</div><span>Select Vehicle</span>
+              </div>
+              <div class="wizard-connector"></div>
+              <div class="wizard-step" id="wstep-2">
+                <div class="step-num">2</div><span>Choose Service</span>
+              </div>
+              <div class="wizard-connector"></div>
+              <div class="wizard-step" id="wstep-3">
+                <div class="step-num">3</div><span>Pick Date &amp; Time</span>
+              </div>
+              <div class="wizard-connector"></div>
+              <div class="wizard-step" id="wstep-4">
+                <div class="step-num">4</div><span>Confirm</span>
+              </div>
+            </div>
+            <div class="wizard-body">
+              <div class="wizard-panel active" id="wpanel-1">
+                <h3 class="wizard-panel-title">Select Your Vehicle</h3>
+                <div class="vehicle-select-grid" id="vehicle-select-grid"></div>
+                <button class="btn btn-primary wizard-next" id="btn-step1-next" onclick="wizardNext(1)" disabled>Next
+                  →</button>
+              </div>
+              <div class="wizard-panel" id="wpanel-2">
+                <h3 class="wizard-panel-title">Choose a Service Package</h3>
+                <div class="services-grid" id="services-select-grid"></div>
+                <div class="wizard-nav">
+                  <button class="btn btn-ghost" onclick="wizardBack(2)">← Back</button>
+                  <button class="btn btn-primary" id="btn-step2-next" onclick="wizardNext(2)" disabled>Next →</button>
+                </div>
+              </div>
+              <div class="wizard-panel" id="wpanel-3">
+                <h3 class="wizard-panel-title">Pick Date &amp; Time Slot</h3>
+                <div class="datetime-picker">
+                  <div class="form-group"><label class="form-label">Preferred Date</label><input type="date"
+                      id="booking-date" class="form-input" oninput="generateTimeSlots()" /></div>
+                  <div class="form-group"><label class="form-label">Available Time Slots</label>
+                    <div class="time-slots" id="time-slots-grid"></div>
+                  </div>
+                </div>
+                <div class="wizard-nav">
+                  <button class="btn btn-ghost" onclick="wizardBack(3)">← Back</button>
+                  <button class="btn btn-primary" id="btn-step3-next" onclick="wizardNext(3)" disabled>Next →</button>
+                </div>
+              </div>
+              <div class="wizard-panel" id="wpanel-4">
+                <h3 class="wizard-panel-title">Confirm Your Booking</h3>
+                <div class="booking-summary" id="booking-summary"></div>
+                <div class="wizard-nav">
+                  <button class="btn btn-ghost" onclick="wizardBack(4)">← Back</button>
+                  <button class="btn btn-primary" onclick="confirmBooking()">✓ Confirm Booking</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- My Bookings -->
+        <div class="panel" id="panel-bookings">
+          <div class="page-header">
+            <div>
+              <h2 class="page-title">My Bookings</h2>
+              <p class="page-subtitle">Track current and upcoming service bookings</p>
+            </div>
+          </div>
+          <div class="search-bar-row">
+            <input type="search" class="form-input search-input" placeholder="🔍 Search by vehicle, service…"
+              oninput="searchBookings(this.value)" />
+          </div>
+          <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterBookings('all',this)">All</button>
+            <button class="filter-btn" onclick="filterBookings('Requested',this)">Requested</button>
+            <button class="filter-btn" onclick="filterBookings('Approved',this)">Approved</button>
+            <button class="filter-btn" onclick="filterBookings('In Service',this)">In Service</button>
+            <button class="filter-btn" onclick="filterBookings('Completed',this)">Completed</button>
+            <button class="filter-btn" onclick="filterBookings('Cancelled',this)">Cancelled</button>
+          </div>
+          <div id="bookings-list"></div>
+        </div>
+
+        <!-- Service History -->
+        <div class="panel" id="panel-history">
+          <div class="page-header">
+            <div>
+              <h2 class="page-title">Service History</h2>
+              <p class="page-subtitle">Your complete service records and invoices</p>
+            </div>
+          </div>
+          <div id="history-list"></div>
+        </div>
+
+        <!-- Notifications -->
+        <div class="panel" id="panel-notifications">
+          <div class="page-header">
+            <div>
+              <h2 class="page-title">Notifications</h2>
+              <p class="page-subtitle">Stay updated on your booking status</p>
+            </div>
+            <button class="btn btn-ghost btn-sm" onclick="markAllRead()">Mark all read</button>
+          </div>
+          <div id="notifications-list"></div>
+        </div>
+
+        <!-- Profile -->
+        <div class="panel" id="panel-profile">
+          <div class="page-header">
+            <div>
+              <h2 class="page-title">My Profile</h2>
+              <p class="page-subtitle">Manage your account details</p>
+            </div>
+          </div>
+          <div id="profile-panel-content"></div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ═══════════════ ADMIN SCREEN ═══════════════ -->
+    <div id="admin-screen" class="screen">
+      <aside class="sidebar" id="admin-sidebar">
+        <div class="sidebar-brand">
+          <div class="brand-icon-sm admin-brand">
+            <svg width="24" height="24" viewBox="0 0 36 36" fill="none">
+              <path d="M6 24l3-9h18l3 9H6z" fill="url(#sg3)" />
+              <rect x="4" y="24" width="28" height="5" rx="2.5" fill="url(#sg3)" />
+              <circle cx="10" cy="29" r="3" fill="#fff" />
+              <circle cx="26" cy="29" r="3" fill="#fff" />
+              <defs>
+                <linearGradient id="sg3" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#f59e0b" />
+                  <stop offset="1" stop-color="#ef4444" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <span class="sidebar-brand-name">Admin Panel</span>
+        </div>
+        <nav class="sidebar-nav">
+          <a href="#" class="nav-item active" onclick="adminNav('dashboard',this)" id="anav-dashboard"><span
+              class="nav-icon">📊</span><span class="nav-label">Dashboard</span></a>
+          <a href="#" class="nav-item" onclick="adminNav('bookings',this)" id="anav-bookings"><span
+              class="nav-icon">🔖</span><span class="nav-label">All Bookings</span></a>
+          <a href="#" class="nav-item" onclick="adminNav('services',this)" id="anav-services"><span
+              class="nav-icon">🛠</span><span class="nav-label">Service Packages</span></a>
+          <a href="#" class="nav-item" onclick="adminNav('centers',this)" id="anav-centers"><span
+              class="nav-icon">🏢</span><span class="nav-label">Service Centers</span></a>
+          <a href="#" class="nav-item" onclick="adminNav('analytics',this)" id="anav-analytics"><span
+              class="nav-icon">📈</span><span class="nav-label">Analytics</span></a>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="user-avatar-sm admin-av" id="admin-avatar-sm"></div>
+          <div class="sidebar-user-info">
+            <p class="sidebar-username" id="admin-name-sidebar"></p>
+            <p class="sidebar-role" style="color:#f59e0b">Service Admin</p>
+          </div>
+          <button class="logout-btn" onclick="handleLogout()" title="Logout">⏻</button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <div class="mobile-header">
+          <button class="hamburger" onclick="toggleSidebar()">☰</button>
+          <span class="mobile-brand">Admin Panel</span>
+          <button class="logout-btn-sm" onclick="handleLogout()">⏻</button>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div class="panel active" id="apanel-dashboard">
+          <div class="page-header">
+            <div>
+              <h2 class="page-title">Admin Dashboard</h2>
+              <p class="page-subtitle">Service center operations overview</p>
+            </div>
+          </div>
+          <div class="stats-grid" id="admin-stats"></div>
+          <div class="dashboard-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Pending Approvals</h3><span class="badge badge-warning"
+                  id="pending-count">0</span>
+              </div>
+              <div id="pending-approvals-list"></div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Today's Services</h3>
+              </div>
+              <div id="todays-services-list"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- All Bookings -->
+        <div class="panel" id="apanel-bookings">
+          <div class="page-header">
+            <div>
+              <h2 class="page-title">All Bookings</h2>
+              <p class="page-subtitle">Manage and update booking statuses</p>
+            </div>
+          </div>
+          <div class="search-bar-row">
+            <input type="search" class="form-input search-input"
+              placeholder="🔍 Search bookings by customer, vehicle, service…"
+              oninput="searchAdminBookings(this.value)" />
+          </div>
+          <div class="filter-bar">
+            <button class="filter-btn active" onclick="adminFilterBookings('all',this)">All</button>
+            <button class="filter-btn" onclick="adminFilterBookings('Requested',this)">Requested</button>
+            <button class="filter-btn" onclick="adminFilterBookings('Approved',this)">Approved</button>
+            <button class="filter-btn" onclick="adminFilterBookings('In Service',this)">In Service</button>
+            <button class="filter-btn" onclick="adminFilterBookings('Completed',this)">Completed</button>
+            <button class="filter-btn" onclick="adminFilterBookings('Cancelled',this)">Cancelled</button>
+          </div>
+          <div id="admin-bookings-list"></div>
+        </div>
+
+        <!-- Service Packages -->
+        <div class="panel" id="apanel-services">
+          <div class="page-header">
+            <div>
+              <h2 class="page-title">Service Packages</h2>
+              <p class="page-subtitle">Manage available service offerings</p>
+            </div>
+            <button class="btn btn-primary" onclick="openModal('add-service-modal')">+ Add Package</button>
+          </div>
+          <div class="services-grid-admin" id="admin-services-grid"></div>
+        </div>
+
+        <!-- Service Centers -->
+        <div class="panel" id="apanel-centers">
+          <div class="page-header">
+            <div>
+              <h2 class="page-title">Service Centers</h2>
+              <p class="page-subtitle">Manage your service center locations</p>
+            </div>
+            <button class="btn btn-primary" onclick="openModal('add-center-modal')">+ Add Center</button>
+          </div>
+          <div class="centers-grid" id="admin-centers-grid"></div>
+        </div>
+
+        <!-- Analytics -->
+        <div class="panel" id="apanel-analytics">
+          <div class="page-header">
+            <div>
+              <h2 class="page-title">Analytics</h2>
+              <p class="page-subtitle">Service performance and trends</p>
+            </div>
+          </div>
+          <div class="analytics-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Monthly Bookings</h3>
+              </div>
+              <div class="chart-container" id="monthly-chart"></div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Service Distribution</h3>
+              </div>
+              <div class="chart-container" id="service-chart"></div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Revenue Trend (₹)</h3>
+              </div>
+              <div class="chart-container" id="revenue-chart"></div>
+            </div>
+            <div class="card full-width">
+              <div class="card-header">
+                <h3 class="card-title">Status Overview</h3>
+              </div>
+              <div class="chart-container" id="status-chart"></div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ═══════════════ MODALS ═══════════════ -->
+  <div id="modal-overlay" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+
+    <!-- Add Vehicle -->
+    <div class="modal" id="add-vehicle-modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Add New Vehicle</h3><button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group"><label class="form-label">Vehicle Type</label>
+          <select id="v-type" class="form-input form-select">
+            <option value="Car">🚗 Car</option>
+            <option value="Bike">🏍 Bike</option>
+            <option value="SUV">🚙 SUV</option>
+            <option value="Truck">🚛 Truck</option>
+            <option value="Van">🚐 Van</option>
+          </select>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group"><label class="form-label">Brand &amp; Model</label><input type="text" id="v-model"
+              class="form-input" placeholder="e.g. Toyota Camry" /></div>
+          <div class="form-group"><label class="form-label">Year</label><input type="number" id="v-year"
+              class="form-input" placeholder="2023" min="2000" max="2026" /></div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group"><label class="form-label">Registration Number</label><input type="text" id="v-reg"
+              class="form-input" placeholder="TN 01 AB 1234" /></div>
+          <div class="form-group"><label class="form-label">Color</label><input type="text" id="v-color"
+              class="form-input" placeholder="Pearl White" /></div>
+        </div>
+      </div>
+      <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button
+          class="btn btn-primary" onclick="addVehicle()">Add Vehicle</button></div>
+    </div>
+
+    <!-- Edit Vehicle -->
+    <div class="modal" id="edit-vehicle-modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Vehicle</h3><button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="ev-id" />
+        <div class="form-group"><label class="form-label">Vehicle Type</label>
+          <select id="ev-type" class="form-input form-select">
+            <option value="Car">🚗 Car</option>
+            <option value="Bike">🏍 Bike</option>
+            <option value="SUV">🚙 SUV</option>
+            <option value="Truck">🚛 Truck</option>
+            <option value="Van">🚐 Van</option>
+          </select>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group"><label class="form-label">Brand &amp; Model</label><input type="text" id="ev-model"
+              class="form-input" /></div>
+          <div class="form-group"><label class="form-label">Year</label><input type="number" id="ev-year"
+              class="form-input" min="2000" max="2026" /></div>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group"><label class="form-label">Registration Number</label><input type="text" id="ev-reg"
+              class="form-input" /></div>
+          <div class="form-group"><label class="form-label">Color</label><input type="text" id="ev-color"
+              class="form-input" /></div>
+        </div>
+      </div>
+      <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button
+          class="btn btn-primary" onclick="saveEditVehicle()">Save Changes</button></div>
+    </div>
+
+    <!-- Add Service (Admin) -->
+    <div class="modal" id="add-service-modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Service Package</h3><button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group"><label class="form-label">Service Name</label><input type="text" id="s-name"
+            class="form-input" placeholder="e.g. Full Body Service" /></div>
+        <div class="form-grid-2">
+          <div class="form-group"><label class="form-label">Price (₹)</label><input type="number" id="s-price"
+              class="form-input" placeholder="1500" /></div>
+          <div class="form-group"><label class="form-label">Duration</label><input type="text" id="s-duration"
+              class="form-input" placeholder="2-3 hours" /></div>
+        </div>
+        <div class="form-group"><label class="form-label">Description</label><textarea id="s-desc"
+            class="form-input form-textarea" placeholder="Describe what's included…"></textarea></div>
+        <div class="form-group"><label class="form-label">Category</label>
+          <select id="s-category" class="form-input form-select">
+            <option value="Basic">Basic</option>
+            <option value="Standard">Standard</option>
+            <option value="Premium">Premium</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button
+          class="btn btn-primary" onclick="addService()">Add Package</button></div>
+    </div>
+
+    <!-- Edit Service (Admin) -->
+    <div class="modal" id="edit-service-modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Service Package</h3><button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="es-id" />
+        <div class="form-group"><label class="form-label">Service Name</label><input type="text" id="es-name"
+            class="form-input" /></div>
+        <div class="form-grid-2">
+          <div class="form-group"><label class="form-label">Price (₹)</label><input type="number" id="es-price"
+              class="form-input" /></div>
+          <div class="form-group"><label class="form-label">Duration</label><input type="text" id="es-duration"
+              class="form-input" /></div>
+        </div>
+        <div class="form-group"><label class="form-label">Description</label><textarea id="es-desc"
+            class="form-input form-textarea"></textarea></div>
+        <div class="form-group"><label class="form-label">Category</label>
+          <select id="es-category" class="form-input form-select">
+            <option value="Basic">Basic</option>
+            <option value="Standard">Standard</option>
+            <option value="Premium">Premium</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button
+          class="btn btn-primary" onclick="saveEditService()">Save Changes</button></div>
+    </div>
+
+    <!-- Add Center (Admin) -->
+    <div class="modal" id="add-center-modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Service Center</h3><button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group"><label class="form-label">Center Name</label><input type="text" id="c-name"
+            class="form-input" placeholder="AutoCare Downtown" /></div>
+        <div class="form-group"><label class="form-label">Location</label><input type="text" id="c-location"
+            class="form-input" placeholder="123 Main St, City" /></div>
+        <div class="form-grid-2">
+          <div class="form-group"><label class="form-label">Contact Number</label><input type="text" id="c-phone"
+              class="form-input" placeholder="+91 98765 43210" /></div>
+          <div class="form-group"><label class="form-label">Working Hours</label><input type="text" id="c-hours"
+              class="form-input" placeholder="9 AM – 7 PM" /></div>
+        </div>
+        <div class="form-group"><label class="form-label">Capacity (vehicles/day)</label><input type="number"
+            id="c-capacity" class="form-input" placeholder="20" /></div>
+      </div>
+      <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button
+          class="btn btn-primary" onclick="addCenter()">Add Center</button></div>
+    </div>
+
+    <!-- Invoice -->
+    <div class="modal modal-lg" id="invoice-modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Service Invoice</h3><button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body" id="invoice-body"></div>
+      <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal()">Close</button><button
+          class="btn btn-primary" onclick="printInvoice()">🖨 Print Invoice</button></div>
+    </div>
+
+    <!-- Rating Modal -->
+    <div class="modal" id="rating-modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Rate Your Service ⭐</h3><button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="color:var(--text-muted);font-size:0.875rem;margin-bottom:18px">How was your experience? Your feedback
+          helps us improve.</p>
+        <div class="form-group">
+          <label class="form-label">Rating</label>
+          <div id="star-picker" class="star-picker"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Review (optional)</label>
+          <textarea id="review-text" class="form-input form-textarea"
+            placeholder="Tell us about your experience…"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal()">Skip</button><button
+          class="btn btn-primary" onclick="submitRating()">Submit Review</button></div>
+    </div>
+
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/data.js"></script>
+</body>
+
+</html>
