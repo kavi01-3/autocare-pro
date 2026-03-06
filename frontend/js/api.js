@@ -3,7 +3,7 @@
 // ============================================================
 
 // Backend API URL (Render)
-const API_BASE = "https://autocare-backend-e0fu.onrender.com";
+const API_BASE = "/api";
 
 const API = {
     async request(endpoint, method = "GET", body = null) {
