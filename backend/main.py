@@ -22,9 +22,8 @@ app.mount("/js", StaticFiles(directory="../frontend/js"), name="js")
 # ROOT ROUTE
 # -----------------------------
 @app.get("/")
-def home():
-    return FileResponse("../index.html")
-
+def read_root():
+    return {"message": "AutoCare API is running"}
 
 # -----------------------------
 # Enable CORS
