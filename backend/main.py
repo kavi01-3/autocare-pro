@@ -2,8 +2,6 @@ from typing import List, Optional
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import Session, select
-from fastapi.responses import FileResponse
-from fastapi.staticfiles import StaticFiles
 
 from database import engine, get_session, create_db_and_tables, seed_data, pwd_context
 from models import User, Vehicle, Service, Booking, Notification, Center
@@ -12,18 +10,6 @@ from pydantic import BaseModel
 import uvicorn
 
 app = FastAPI(title="AutoCare Pro API")
-
-# Serve CSS and JS folders
-app.mount("/css", StaticFiles(directory="../frontend/css"), name="css")
-app.mount("/js", StaticFiles(directory="../frontend/js"), name="js")
-
-
-# -----------------------------
-# ROOT ROUTE
-# -----------------------------
-@app.get("/")
-def read_root():
-    return {"message": "AutoCare API is running"}
 
 # -----------------------------
 # Enable CORS
@@ -36,6 +22,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# -----------------------------
+# ROOT ROUTE
+# -----------------------------
+@app.get("/")
+def read_root():
+    return {"message": "AutoCare API is running"}
 
 # -----------------------------
 # Startup Event
@@ -44,7 +36,6 @@ app.add_middleware(
 def on_startup():
     create_db_and_tables()
     seed_data()
-
 
 # -----------------------------
 # AUTH MODELS
