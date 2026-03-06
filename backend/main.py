@@ -16,7 +16,9 @@ app = FastAPI(title="AutoCare Pro API")
 # -----------------------------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://autocare-pro-zeta.vercel.app/"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
