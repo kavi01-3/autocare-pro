@@ -8,17 +8,14 @@ from models import User, Vehicle, Service, Booking, Notification, Center
 
 from pydantic import BaseModel
 import uvicorn
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="AutoCare Pro API")
 
 # -----------------------------
 # Enable CORS
 # -----------------------------
-
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-
-app = FastAPI(title="AutoCare Pro API")
 
 # CORS FIX
 app.add_middleware(
