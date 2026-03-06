@@ -6,67 +6,110 @@
 const API_BASE = "https://autocare-backend-e0fu.onrender.com";
 
 const API = {
-    async request(endpoint, method = 'GET', body = null) {
+    async request(endpoint, method = "GET", body = null) {
+
         const options = {
-            method,
-            headers: { 'Content-Type': 'application/json' },
+            method: method,
+            headers: {
+                "Content-Type": "application/json"
+            }
         };
 
-        if (body) options.body = JSON.stringify(body);
+        if (body) {
+            options.body = JSON.stringify(body);
+        }
 
         try {
+
             const response = await fetch(`${API_BASE}${endpoint}`, options);
 
-            const contentType = response.headers.get("content-type");
+            const text = await response.text();
+
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch {
+                data = { message: text };
+            }
 
             if (!response.ok) {
-                if (contentType && contentType.includes("application/json")) {
-                    const error = await response.json();
-                    throw new Error(error.detail || 'Something went wrong');
-                } else {
-                    throw new Error("Server error");
-                }
+                throw new Error(data.detail || data.message || "Server error");
             }
 
-            if (contentType && contentType.includes("application/json")) {
-                return await response.json();
-            } else {
-                return {};
-            }
+            return data;
 
-        } catch (err) {
-            console.error(`API Error [${method} ${endpoint}]:`, err);
-            throw err;
+        } catch (error) {
+            console.error(`API Error [${method} ${endpoint}]`, error);
+            throw error;
         }
     },
 
-    // Auth
-    login: (email, password) => API.request('/auth/login', 'POST', { email, password }),
-    register: (data) => API.request('/auth/register', 'POST', data),
+    // -----------------------
+    // AUTH
+    // -----------------------
+    login: (email, password) =>
+        API.request("/auth/login", "POST", { email, password }),
 
-    // Users
-    updateProfile: (id, data) => API.request(`/users/${id}`, 'PATCH', data),
+    register: (data) =>
+        API.request("/auth/register", "POST", data),
 
-    // Vehicles
-    getVehicles: (userId) => API.request(`/vehicles?user_id=${userId}`),
-    addVehicle: (data) => API.request('/vehicles', 'POST', data),
-    updateVehicle: (id, data) => API.request(`/vehicles/${id}`, 'PUT', data),
-    deleteVehicle: (id) => API.request(`/vehicles/${id}`, 'DELETE'),
+    // -----------------------
+    // USERS
+    // -----------------------
+    updateProfile: (id, data) =>
+        API.request(`/users/${id}`, "PATCH", data),
 
-    // Services
-    getServices: () => API.request('/services'),
-    addService: (data) => API.request('/services', 'POST', data),
+    // -----------------------
+    // VEHICLES
+    // -----------------------
+    getVehicles: (userId) =>
+        API.request(`/vehicles?user_id=${userId}`),
 
-    // Bookings
-    getBookings: (userId = null) => API.request(userId ? `/bookings?user_id=${userId}` : '/bookings'),
-    addBooking: (data) => API.request('/bookings', 'POST', data),
-    updateBooking: (id, updates) => API.request(`/bookings/${id}`, 'PATCH', updates),
+    addVehicle: (data) =>
+        API.request("/vehicles", "POST", data),
 
-    // Notifications
-    getNotifications: (userId) => API.request(`/notifications?user_id=${userId}`),
-    addNotification: (data) => API.request('/notifications', 'POST', data),
-    markNotifRead: (id) => API.request(`/notifications/${id}/read`, 'PATCH'),
+    updateVehicle: (id, data) =>
+        API.request(`/vehicles/${id}`, "PUT", data),
 
-    // Centers
-    getCenters: () => API.request('/centers'),
+    deleteVehicle: (id) =>
+        API.request(`/vehicles/${id}`, "DELETE"),
+
+    // -----------------------
+    // SERVICES
+    // -----------------------
+    getServices: () =>
+        API.request("/services"),
+
+    addService: (data) =>
+        API.request("/services", "POST", data),
+
+    // -----------------------
+    // BOOKINGS
+    // -----------------------
+    getBookings: (userId = null) =>
+        API.request(userId ? `/bookings?user_id=${userId}` : "/bookings"),
+
+    addBooking: (data) =>
+        API.request("/bookings", "POST", data),
+
+    updateBooking: (id, updates) =>
+        API.request(`/bookings/${id}`, "PATCH", updates),
+
+    // -----------------------
+    // NOTIFICATIONS
+    // -----------------------
+    getNotifications: (userId) =>
+        API.request(`/notifications?user_id=${userId}`),
+
+    addNotification: (data) =>
+        API.request("/notifications", "POST", data),
+
+    markNotifRead: (id) =>
+        API.request(`/notifications/${id}/read`, "PATCH"),
+
+    // -----------------------
+    // SERVICE CENTERS
+    // -----------------------
+    getCenters: () =>
+        API.request("/centers"),
 };
